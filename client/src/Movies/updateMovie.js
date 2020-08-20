@@ -6,6 +6,7 @@ const initialValue = {
     title: '',
     director: '',
     metascore: '',
+    stars: ''
 }
 
 const UpdateMovie = props => {
@@ -30,7 +31,9 @@ const UpdateMovie = props => {
 
     const submitUpdate = (evt) => {
         evt.preventDefault()
-        axios.put(`http://localhost:5000/api/movies/${id}`, form)
+        const starsArr = form.stars.split(',')
+        const newMovie = {...form, stars: starsArr}
+        axios.put(`http://localhost:5000/api/movies/${id}`, newMovie)
         .then(res => {
             console.log(res)
             history.push(`/movies/${id}`)
@@ -73,6 +76,17 @@ const UpdateMovie = props => {
                         name='metascore'
                         id='metascore'
                         value={form.metascore}
+                        onChange={handleChanges}
+                    >
+                    </input>
+                </label>
+                <label>
+                    <input
+                        type='text'
+                        placeholder='Stars'
+                        name='stars'
+                        id='star'
+                        value={form.stars.toString()}
                         onChange={handleChanges}
                     >
                     </input>

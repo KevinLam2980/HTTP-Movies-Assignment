@@ -72,7 +72,7 @@ const AddMovie = () => {
                 <label>
                     <input
                         type='text'
-                        placeholder='Star'
+                        placeholder='Stars'
                         name='stars'
                         id='star'
                         value={newMovie.stars}
@@ -81,7 +81,7 @@ const AddMovie = () => {
                     </input>
                 </label>
     
-                <button>Update</button>
+                <button>add movie</button>
             </form>
         </div>
     )

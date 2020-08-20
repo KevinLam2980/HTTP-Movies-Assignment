@@ -15,12 +15,14 @@ const AddMovie = () => {
     const history = useHistory()
 
     const handleChanges = evt => {
-        setNewMovie({[evt.target.name]: evt.target.name})
+        setNewMovie({...newMovie, [evt.target.name]: evt.target.value})
     }
 
     const submitMovie = (evt) => {
         evt.preventDefault()
-        Axios.post('http://localhost:5000/api/movies', newMovie)
+        const starsArr = newMovie.stars.split(',')
+        const movie = {...newMovie, stars: starsArr}
+        Axios.post('http://localhost:5000/api/movies', movie)
         .then(res => {
             console.log(res)
             history.push('/')
@@ -32,7 +34,7 @@ const AddMovie = () => {
 
     return(
         <div>
-             <form onSubmit={submitUpdate}>
+             <form onSubmit={submitMovie}>
                 <label>
                     <input
                     type='text'
@@ -57,7 +59,8 @@ const AddMovie = () => {
                 </label>
                 <label>
                     <input
-                        type='text'
+                        type='number'
+                        max='100'
                         placeholder='Metascore'
                         name='metascore'
                         id='metascore'
@@ -66,6 +69,18 @@ const AddMovie = () => {
                     >
                     </input>
                 </label>
+                <label>
+                    <input
+                        type='text'
+                        placeholder='Star'
+                        name='stars'
+                        id='star'
+                        value={newMovie.stars}
+                        onChange={handleChanges}
+                    >
+                    </input>
+                </label>
+    
                 <button>Update</button>
             </form>
         </div>
